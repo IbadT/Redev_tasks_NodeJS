@@ -1,0 +1,9 @@
+[
+  { "id": 0, "name": "Pasha", "isMan": true, "age": 23 },
+  { "id": 1, "name": "John", "isMan": true, "age": 27 },
+  { "id": 2, "name": "Dasha", "isMan": false, "age": 11 },
+  { "id": 3, "name": "Max", "isMan": true, "age": 32 },
+  { "id": 4, "name": "Alla", "isMan": false, "age": 18 },
+  { "id": 333, "name": "Anya", "isMan": false, "age": 16 },
+  { "id": 6, "name": "Natasha", "isMan": false, "age": 22222 }
+]
