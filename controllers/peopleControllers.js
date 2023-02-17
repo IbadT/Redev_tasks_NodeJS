@@ -1,44 +1,83 @@
-let people = {
-    1: {
-        name: 'John',
-        age: 21
-    }, 
-    2: {
-        name: 'Ivan',
-        age: 17
-    },
-    3: {
-        name: 'Max',
-        age: 38
-    }
-}
+// let people = {
+//     1: {
+//         name: 'John',
+//         age: 21
+//     }, 
+//     2: {
+//         name: 'Ivan',
+//         age: 17
+//     },
+//     3: {
+//         name: 'Max',
+//         age: 38
+//     }
+// }
+
+// {
+//     "1": {
+//         "name": "John",
+//         "age": 21
+//     }, 
+//     "2": {
+//         "name": "Ivan",
+//         "age": 17
+//     },
+//     "3": {
+//         "name": "Max",
+//         "age": 38
+//     }
+// }
+
+
+
+
+const PeopleServices = require('../services/peopleServices.js')
 
 class PeopleControllers {
-    getPeople() {
+
+    async getPeople() {
+
+        let people = await PeopleServices.getPeople();
         return people;
+
     };
 
-    createPeople(body) {
-        people = {...people, ...body};
+    async createPeople(body) {
+
+        let createPeople = await PeopleServices.createPeople(body);
+        return createPeople;
+
+        // people = {...people, ...body};
+
     };
 
-    editPeoplle(id, body) {
-        for(let key in people) {
-            if(id == key) {
-                people[key] = body;
-            }
-        }
+    async editPeople(id, body) {
+
+        let editPeople = await PeopleServices.editPeople(id, body);
+        return editPeople;
+
+        // for(let key in people) {
+        //     if(id == key) {
+        //         people[key] = body;
+        //     }
+        // }
+
     };
 
-    deletePeople(id) {
-        const index = Object.keys(people).findIndex(i => i == id);
-        if(index !== -1) {
-            // delete people[index+1];
-            Reflect.deleteProperty(people, index+1);
-            return true;
-        } else {
-            return false;
-        }
+    async deletePeople(id) {
+
+        let bool = await PeopleServices.deletePeople(id);
+        return bool;
+
+        // const index = Object.keys(people).findIndex(i => i == id);
+        // if(index !== -1) {
+        //     // delete people[index+1];
+        //     Reflect.deleteProperty(people, index+1);
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        
     }
 }
 

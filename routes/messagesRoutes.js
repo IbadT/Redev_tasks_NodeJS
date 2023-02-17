@@ -3,75 +3,47 @@ const router = express.Router();
 const MessageControllers = require('../controllers/messageControllers.js');
 
 
-router.get('/messages', (req, res) => {
+router.get('/messages', async (req, res) => {
     try {
-        const messages = MessageControllers.getMessages();
+        const messages = await MessageControllers.getMessages();
         res.send(messages);
     } catch (error) {
         console.log(error);
     }
 })
 
-router.get('/messageById/:id', (req, res) => {
+router.get('/messageById/:id', async (req, res) => {
     try {
-        const message = MessageControllers.getMessageById(req.params.id);
+        const message = await MessageControllers.getMessageById(req.params.id);
         res.send(message);   
     } catch (error) {
         console.log(error);
     }
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     try {
-        MessageControllers.createMessage(req.body);
+        let createdMessage = await MessageControllers.createMessage(req.body);
         res
             .status(201)
-            .send(req.body);
-    } catch (error) {
-        console.log(error);
-    }
-    // messages = {...messages, 4: req.body}; //////////////
-});
-
-// {
-//     "id": 123,
-//     "text": "<<<SDFSDFSdfasSDfaDSFSDF>>>"
-// }
-
-// {
-//     "1": {
-//         "id": 1,
-//         "text": "first text"
-//     },
-//     "2": {
-//         "id": 2,
-//         "text": "second text"
-//     },
-//     "3": {
-//         "id": 3,
-//         "text": "third text"
-//     },
-//     "body": {
-//         "id": 123,
-//         "text": "<<<SDFSDFSdfasSDfaDSFSDF>>>"
-//     }
-// }
-
-
-
-
-router.put('/edit/:id', (req, res) => {
-    try {
-        MessageControllers.editMessage(req.params.id, req.body);
-        res.send(req.body);
+            .send(createdMessage);
     } catch (error) {
         console.log(error);
     }
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.put('/edit/:id', async (req, res) => {
     try {
-        const bool = MessageControllers.deleteMessage(req.params.id);
+        let editMessage = await MessageControllers.editMessage(req.params.id, req.body);
+        res.send(editMessage);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const bool = await MessageControllers.deleteMessage(req.params.id);
         res.send(bool);    
     } catch (error) {
         console.log(error);

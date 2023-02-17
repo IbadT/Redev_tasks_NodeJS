@@ -24,6 +24,7 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 res(JSON.parse(data));
             })
         })
@@ -33,10 +34,14 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let res = JSON.parse(data)
                 res.push(body)
+
                 fs.writeFile('./data/usersData.json', JSON.stringify(res), (err) => {
                     if(err) throw err;
+
+                    res(body);
                 })
             })
         })
@@ -46,10 +51,13 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let jsonData = JSON.parse(data).map(i => i.id == id ? body : i);
 
                 fs.writeFile('./data/usersData.json', JSON.stringify(jsonData), (err) => {
                     if(err) throw err;
+
+                    res(body);
                 })
 
             })
@@ -61,12 +69,19 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let result = JSON.parse(data)
                 let index = result.findIndex(i => i.id == id);
-                result.splice(index, 1);
+                if(index !== -1) {
+                    result.splice(index, 1);
+                } else {
+
+                    res(false)
+                }
 
                 fs.writeFile('./data/usersData.json', JSON.stringify(result), (err) => {
-                    if(err) res(false);
+                    if(err) throw err;
+
                     res(true);
                 })
             })
@@ -77,11 +92,13 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let parseData = JSON.parse(data);
                 let result = parseData.map(i => i.id == id ? {...i, age: age} : i);
                 
                 fs.writeFile('./data/usersData.json', JSON.stringify(result), (err) => {
                     if(err) throw err;
+
                     res(result[id]);
                 })
             })
@@ -92,8 +109,10 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let parseData = JSON.parse(data);
                 let user = parseData.filter(i => gender === 'M' ? i.isMan : !i.isMan);
+
                 res(user);
             })
         })
@@ -103,8 +122,10 @@ class UserService {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+
                 let parseData = JSON.parse(data);
                 let result = parseData.filter(i => i.age >= min && i.age <= max);
+                
                 res(result);
             })
         })

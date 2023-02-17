@@ -1,14 +1,6 @@
 {
-    "1": {
-        "id": 1,
-        "text": "first text"
-    },
-    "2": {
-        "id": 2,
-        "text": "second text"
-    },
-    "3": {
-        "id": 3,
-        "text": "third text"
-    }
+  "0": { "id": 0, "text": "start text" },
+  "1": { "id": 1, "text": "first text" },
+  "2": { "id": 2, "text": "second text" },
+  "3": { "id": 3, "text": "third text" }
 }

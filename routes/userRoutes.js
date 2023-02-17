@@ -20,11 +20,11 @@ router.get('/users', async (req, res) => {
 // 2) POST /user
 // (добавляет нового пользователя в массив. Возвращает нового пользователя)
 // { "id": 6, "name": "Natasha", "isMan": false, "age": 22222 }
-router.post('/user', (req, res) => {
+router.post('/user', async (req, res) => {
     try {
-        UserControllers.createUser(req.body);
+        const createdUser = await UserControllers.createUser(req.body);
         res
-            .send(req.body)
+            .send(createdUser)
             .status(201);
     } catch (error) {
         console.log(error);
@@ -35,10 +35,10 @@ router.post('/user', (req, res) => {
 // 3) PUT /user/:id
 // (изменяет пользователя по id. Возвращает обновленного пользователя)
 // { "id": 1, "name": "TEST_Pasha_TEST", "isMan": false, "age": 23 }
-router.put('/user/:id', (req, res) => {
+router.put('/user/:id', async (req, res) => {
     try {
-        UserControllers.editUser(req.params.id, req.body);
-        res.send(req.body);
+        const editUser = await UserControllers.editUser(req.params.id, req.body);
+        res.send(editUser);
     } catch (error) {
         console.log(error);
     }
@@ -110,52 +110,55 @@ router.get('/filtredUsers', async (req, res) => {
 
 });
 
-
-
-
-
-
-
-
-
-
-const fs = require('fs');
-router.get('/read', (req, res) => {
-    console.log('read'); 
-    fs.readFile('data.json', "utf8", (err, data) => {
-        console.log('асинхронное чтение файла'); 
-        if(err) throw err;
-        console.log(typeof data); // string
-
-        const obj = JSON.parse(data);
-        console.log(obj);
-        console.log(typeof obj); // object
-
-        res.send(obj);
-    })
-})
-
-router.post('/write', (req, res) => {
-    console.log('write');
-
-    let data = fs.readFileSync('data.json', 'utf8');
-    console.log(data);
-
-    const obj = JSON.parse(data);
-    console.log(obj);
-
-    obj.push(req.body);
-    console.log(obj);
-
-    fs.writeFile('data.json', JSON.stringify(obj, null, 3), (err) => {
-        if(err) throw err;
-        console.log('завершено');
-    })
-
-    res.send(obj);
-})
-
-
-
-
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const fs = require('fs');
+// router.get('/read', (req, res) => {
+//     console.log('read'); 
+//     fs.readFile('data.json', "utf8", (err, data) => {
+//         console.log('асинхронное чтение файла'); 
+//         if(err) throw err;
+//         console.log(typeof data); // string
+
+//         const obj = JSON.parse(data);
+//         console.log(obj);
+//         console.log(typeof obj); // object
+
+//         res.send(obj);
+//     })
+// })
+
+// router.post('/write', (req, res) => {
+//     console.log('write');
+
+//     let data = fs.readFileSync('data.json', 'utf8');
+//     console.log(data);
+
+//     const obj = JSON.parse(data);
+//     console.log(obj);
+
+//     obj.push(req.body);
+//     console.log(obj);
+
+//     fs.writeFile('data.json', JSON.stringify(obj, null, 3), (err) => {
+//         if(err) throw err;
+//         console.log('завершено');
+//     })
+
+//     res.send(obj);
+// })
