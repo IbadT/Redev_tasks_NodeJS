@@ -7,7 +7,7 @@ const UserControllers = require('../controllers/userControllers.js')
 
 // 1) GET /users
 // (возвращает массив всех пользователей)
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await UserControllers.getUsers();
         res.send(users);
