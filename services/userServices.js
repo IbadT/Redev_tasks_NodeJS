@@ -22,7 +22,7 @@ const fs = require('fs');
 class UserService {
     getUsers() {
         return new Promise((res, rej) => {
-            fs.readFile('./data.usersData.json', 'utf8', (err, data) => {
+            fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
                 // if(err) Sentry.captureException(err);
 
