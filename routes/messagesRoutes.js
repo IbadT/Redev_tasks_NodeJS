@@ -8,7 +8,8 @@ router.get('/messages', async (req, res) => {
         const messages = await MessageControllers.getMessages();
         res.send(messages);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 })
 
@@ -17,7 +18,8 @@ router.get('/messageById/:id', async (req, res) => {
         const message = await MessageControllers.getMessageById(req.params.id);
         res.send(message);   
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -28,7 +30,8 @@ router.post('/create', async (req, res) => {
             .status(201)
             .send(createdMessage);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -37,7 +40,8 @@ router.put('/edit/:id', async (req, res) => {
         let editMessage = await MessageControllers.editMessage(req.params.id, req.body);
         res.send(editMessage);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -46,7 +50,8 @@ router.delete('/delete/:id', async (req, res) => {
         const bool = await MessageControllers.deleteMessage(req.params.id);
         res.send(bool);    
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 

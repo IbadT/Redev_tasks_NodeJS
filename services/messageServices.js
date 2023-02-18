@@ -4,7 +4,8 @@ class MessageServices {
     getMessages() {
         return new Promise((res, rej) => {
             fs.readFile('./data/messagesData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 res(JSON.parse(data));
             })
@@ -14,7 +15,8 @@ class MessageServices {
     getMessageById(id) {
         return new Promise((res, rej) => {
             fs.readFile('./data/messagesData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
                 
                 let parseData = JSON.parse(data);
 
@@ -26,7 +28,8 @@ class MessageServices {
     createMessage(body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/messagesData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 // next index ↓
@@ -42,7 +45,8 @@ class MessageServices {
 
                 // parseData[body.id] = body;
                 fs.writeFile('./data/messagesData.json', JSON.stringify(parseData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -53,13 +57,15 @@ class MessageServices {
     editMessage(id, body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/messagesData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 parseData[id] = body
 
                 fs.writeFile('./data/messagesData.json', JSON.stringify(parseData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -70,7 +76,8 @@ class MessageServices {
     deleteMessage(id) {
         return new Promise((res, rej) => {
             fs.readFile('./data/messagesData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 let index = Object.entries(parseData).findIndex(i => i[0] == id);
@@ -83,7 +90,8 @@ class MessageServices {
                 }
 
                 fs.writeFile('./data/messagesData.json', JSON.stringify(parseData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
                     
                     res(true);
                 })

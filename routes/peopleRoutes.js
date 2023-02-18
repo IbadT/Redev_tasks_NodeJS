@@ -8,7 +8,8 @@ router.get('/people', async (req, res) => {
         const people = await PeopleControllers.getPeople();
         res.send(people);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 })
 
@@ -19,7 +20,8 @@ router.post('/create', async (req, res) => {
             .status(201)
             .send(createPeople);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -30,7 +32,8 @@ router.put('/edit/:id', async (req, res) => {
         let editPeople = await PeopleControllers.editPeople(req.params.id, req.body);
         res.send(editPeople);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -39,7 +42,8 @@ router.delete('/delete/:id', async (req, res) => {
         const bool = await PeopleControllers.deletePeople(req.params.id, );
         res.send(bool);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 

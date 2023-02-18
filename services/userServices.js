@@ -22,8 +22,9 @@ const fs = require('fs');
 class UserService {
     getUsers() {
         return new Promise((res, rej) => {
-            fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
+            fs.readFile('./data.usersData.json', 'utf8', (err, data) => {
                 if(err) throw err;
+                // if(err) Sentry.captureException(err);
 
                 res(JSON.parse(data));
             })
@@ -33,13 +34,15 @@ class UserService {
     createUser(body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let res = JSON.parse(data)
                 res.push(body)
 
                 fs.writeFile('./data/usersData.json', JSON.stringify(res), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -50,12 +53,14 @@ class UserService {
     editUser(id, body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let jsonData = JSON.parse(data).map(i => i.id == id ? body : i);
 
                 fs.writeFile('./data/usersData.json', JSON.stringify(jsonData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -68,7 +73,8 @@ class UserService {
     async deleteUser(id) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let result = JSON.parse(data)
                 let index = result.findIndex(i => i.id == id);
@@ -80,7 +86,8 @@ class UserService {
                 }
 
                 fs.writeFile('./data/usersData.json', JSON.stringify(result), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(true);
                 })
@@ -91,13 +98,15 @@ class UserService {
     editUserParam(id, age) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 let result = parseData.map(i => i.id == id ? {...i, age: age} : i);
                 
                 fs.writeFile('./data/usersData.json', JSON.stringify(result), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(result[id]);
                 })
@@ -108,7 +117,8 @@ class UserService {
     async getUserForGender(gender) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 let user = parseData.filter(i => gender === 'M' ? i.isMan : !i.isMan);
@@ -121,7 +131,8 @@ class UserService {
     async getFilterUsers(min, max) {
         return new Promise((res, rej) => {
             fs.readFile('./data/usersData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 let result = parseData.filter(i => i.age >= min && i.age <= max);

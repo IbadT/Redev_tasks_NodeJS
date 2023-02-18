@@ -12,7 +12,8 @@ router.get('/users', async (req, res) => {
         const users = await UserControllers.getUsers();
         res.send(users);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -27,7 +28,8 @@ router.post('/user', async (req, res) => {
             .send(createdUser)
             .status(201);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -40,7 +42,8 @@ router.put('/user/:id', async (req, res) => {
         const editUser = await UserControllers.editUser(req.params.id, req.body);
         res.send(editUser);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -59,7 +62,8 @@ router.patch('/user/:id', async (req, res) => {
         // UserControllers.patchUser(id, req.body.age);
         // res.send(users[id])
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -71,7 +75,8 @@ router.delete('/deleteUser/:id', async (req, res) => {
         const bool = await UserControllers.deleteUser(req.params.id);
         res.send(bool);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -88,7 +93,8 @@ router.get('/users/:gender', async (req, res) => {
         // const genderUsers = UserControllers.getUserForGender(gender);
         // res.send(genderUsers);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 });
 
@@ -105,7 +111,8 @@ router.get('/filtredUsers', async (req, res) => {
         // const filterUsers = UserControllers.getFiltredUsers(min, max);
         // res.send(filterUsers);
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
+        // console.log(error);
     }
 
 });

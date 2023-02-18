@@ -4,7 +4,8 @@ class PeopleServices {
     getPeople() {
         return new Promise((res, rej) => {
             fs.readFile('./data/peopleData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 res(JSON.parse(data));
             })
@@ -14,7 +15,8 @@ class PeopleServices {
     createPeople(body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/peopleData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 for(let key in parseData) {
@@ -28,7 +30,8 @@ class PeopleServices {
                 parseData[index] = body;
 
                 fs.writeFile('./data/peopleData.json', JSON.stringify(parseData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -39,13 +42,15 @@ class PeopleServices {
     editPeople(id, body) {
         return new Promise((res, rej) => {
             fs.readFile('./data/peopleData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 parseData[id] = body;
 
                 fs.writeFile('./data/peopleData.json', JSON.stringify(parseData), (err) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
 
                     res(body);
                 })
@@ -56,7 +61,8 @@ class PeopleServices {
     deletePeople(id) {
         return new Promise((res, rej) => {
             fs.readFile('./data/peopleData.json', 'utf8', (err, data) => {
-                if(err) throw err;
+                // if(err) throw err;
+                if(err) Sentry.captureException(err);
 
                 let parseData = JSON.parse(data);
                 let index = Object.entries(parseData).findIndex(i => i[0] == id);
@@ -68,7 +74,8 @@ class PeopleServices {
                 }
 
                 fs.writeFile('./data/peopleData.json', JSON.stringify(parseData), (er) => {
-                    if(err) throw err;
+                    // if(err) throw err;
+                    if(err) Sentry.captureException(err);
                     
                     res(true);
                 })
